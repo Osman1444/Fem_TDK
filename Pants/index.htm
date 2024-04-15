@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fem TDK: Pants</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="Source/Images/Logo.jpg" type="image/x-icon">
+</head>
+<body>
+    <nav><h1 class="title">Fem TDK</h1>
+        <section>
+            <a href="https://osman1444.github.io/Fem_TDK/">Home</a>
+            <a href="#Collection">Shop Collection</a>
+            <a href="#ShippingimagePolicy">Shipping Policy</a>
+            <a href="#Contact Us">Contact Us</a>
+        </section>
+    </nav>
+    <section id="Collection">
+        <center>
+            <h1>Pants</h1>
+            <div class="sort">
+                <label>Sort By</label>
+                <select id="sortSelect">
+                    <option value="best_selling">...</option>
+                    <option value="price_low">Price, low to high</option>
+                    <option value="price_high">Price, high to low</option>
+                </select>                
+            </div>
+            <section>
+                <div onclick="openItem('Pant 1', 'Source/image1.jpg', '1150')" style="background-image: url('Source/image1.jpg');background-size: cover;">
+                    <h2>Pant 1</h2>
+                    <span data-price="1150">1,150£</span>
+                </div>
+                <div onclick="openItem('Pant 2', 'Source/image2.jpg', '1150')" style="background-image: url('Source/image2.jpg');background-size: cover;">
+                    <h2>Pant 2</h2>
+                    <span data-price="1150">1,500£</span>
+                </div>
+                <div onclick="openItem('Pant 3', 'Source/image3.jpg', '1300')" style="background-image: url('Source/image3.jpg');background-size: cover;">
+                    <h2>Pant 3</h2>
+                    <span data-price="1150">1,300£</span>
+                </div>
+                <div onclick="openItem('Pant 4', 'Source/image4.jpg', '1300')" style="background-image: url('Source/image4.jpg');background-size: cover;">
+                    <h2>Pant 4</h2>
+                    <span data-price="1150">1,300£</span>
+                </div>
+                <div onclick="openItem('Pant 5', 'Source/image5.jpg', '1650')" style="background-image: url('Source/image5.jpg');background-size: cover;">
+                    <h2>Pant 5</h2>
+                    <span data-price="1150">1,650£</span>
+                </div>
+                <div onclick="openItem('Pant 6', 'Source/image6.jpg', '1000')" style="background-image: url('Source/image6.jpg');background-size: cover;">
+                    <h2>Pant 6</h2>
+                    <span data-price="1150">1,000£</span>
+                </div>
+                <div onclick="openItem('Pant 7', 'Source/image7.jpg', '1050')" style="background-image: url('Source/image7.jpg');background-size: cover;">
+                    <h2>Pant 7</h2>
+                    <span data-price="1050">1,050£</span>
+                </div>
+                <div onclick="openItem('Pant 8', 'Source/image8.jpg', '1500')" style="background-image: url('Source/image8.jpg');background-size: cover;">
+                    <h2>Pant 8</h2>
+                    <span data-price="1500">1,500£</span>
+                </div>
+                <div onclick="openItem('Pant 9', 'Source/image9.jpg', '1350')" style="background-image: url('Source/image9.jpg');background-size: cover;">
+                    <h2>Pant 9</h2>
+                    <span data-price="1350">1,350£</span>
+                </div>
+                <div onclick="openItem('Pant 10', 'Source/image10.jpg', '1900')" style="background-image: url('Source/image10.jpg');background-size: cover;">
+                    <h2>Pant 10</h2>
+                    <span data-price="1900">1,900£</span>
+                </div>
+                <div onclick="openItem('Pant 11', 'Source/image11.jpg', '1650')" style="background-image: url('Source/image11.jpg');background-size: cover;">
+                    <h2>Pant 11</h2>
+                    <span data-price="1650">1,650£</span>
+                </div>
+                <div onclick="openItem('Pant 12', 'Source/image12.jpg', '1100')" style="background-image: url('Source/image12.jpg');background-size: cover;">
+                    <h2>Pant 12</h2>
+                    <span data-price="1100">1,100£</span>
+                </div>
+            </section>
+        </center>
+    </section>
+    <script>
+        function openItem(name, image, price) {
+            var url = "item.html?name=" + encodeURIComponent(name) + "&image=" + encodeURIComponent(image) + "&price=" + encodeURIComponent(price);
+            window.open(url, 'imageblank');
+        }
+    
+        // Function to sort items based on the selected option
+        function sortItems() {
+            var sortSelect = document.getElementById("sortSelect");
+            var selectedOption = sortSelect.value;
+            var itemsContainer = document.querySelector("#Collection section");
+            var items = Array.from(itemsContainer.children);
+
+            // Sorting logic
+            if (selectedOption === "price_low") {
+                var bestSellingOption = document.querySelector("#sortSelect option[value='best_selling']");
+                if (bestSellingOption) {
+                    bestSellingOption.remove();
+                }
+                items.sort(function(a, b) {
+                    return parseFloat(a.querySelector("span").getAttribute("data-price")) - parseFloat(b.querySelector("span").getAttribute("data-price"));
+                });
+            } else if (selectedOption === "price_high") {
+                var bestSellingOption = document.querySelector("#sortSelect option[value='best_selling']");
+                if (bestSellingOption) {
+                    bestSellingOption.remove();
+                }
+                items.sort(function(a, b) {
+                    return parseFloat(b.querySelector("span").getAttribute("data-price")) - parseFloat(a.querySelector("span").getAttribute("data-price"));
+                });
+            }
+            
+            // Reordering items in the container
+            items.forEach(function(item) {
+                itemsContainer.appendChild(item);
+            });
+        }
+    
+        // Event listener for select change
+        document.getElementById("sortSelect").addEventListener("change", sortItems);
+    
+        // Initial sorting when the page loads
+        sortItems();
+    </script>    
+</body>
+</html>
